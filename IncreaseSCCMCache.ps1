@@ -28,7 +28,7 @@ try {
         Write-Output "   ➤ Cache Location: $($NewCache.Location)"
         Write-Output "   ➤ Cache Size: $($NewCache.Size) MB"
     } else {
-        Write-Error "❌ CacheConfig not found. Reimage, you cannot continue without SCCM Agent - Jarle"
+        Write-Error "❌ CacheConfig not found. Reimage, you cannot continue without SCCM Agent"
     }
 }
 catch {
