@@ -12,6 +12,6 @@ A collection of the powerhell scripts ive made for diffrent tasks.
 
 *This PowerShell script increases the SCCM client cache size to 15 GB, restarts the SMS Agent Host service, and confirms the change. It must be run as an administrator and is intended for systems with the SCCM client installed.*
 
-[**IncreaseSCCMCache.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/IncreaseSCCMCache.ps1)
+[**DontSleep.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/DontSleep.ps1)
 
 *This PowerShell script prevents the computer from sleeping or dimming the display while it runs. It keeps the system awake in a loop and restores normal sleep behavior when stopped (via Ctrl+C)*
