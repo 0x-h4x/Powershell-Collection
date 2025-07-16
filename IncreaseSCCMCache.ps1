@@ -1,7 +1,7 @@
 ﻿# Run me as admin :)
 $NewCacheSize = 15140  # 15 GB
 
-# Check if the script is running with admin rights
+#Admin-Check
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
     Write-Host "⚠️  This script must be run as Administrator. Please restart PowerShell as Administrator and try again." -ForegroundColor Yellow
     exit
