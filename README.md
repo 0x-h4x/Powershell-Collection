@@ -1,12 +1,12 @@
 ## WIP - Work in progress
-*(use on your own discretion, i take no responsiblities for your shit breaking)*
+*(all scripts are tested, however use on your own discretion, i take no responsiblities for your shit breaking)*
 
 # Powershell-Collection
 ### A collection of the powershell scripts to automate tedious tasks.
 
 
 
-To run these scripts remotely, use the following command:
+To run these scripts remotely, usse the following command:
 
 ``
 $script="$env:TEMP\TempScript.ps1"; Invoke-WebRequest 'https://raw.githubusercontent.com/0x-h4x/Powershell-Collection/refs/heads/main/DontSleep.ps1' -OutFile $script; & $script; Remove-Item $script -Force
