@@ -6,7 +6,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     exit
 }
 
-
 #always exclude
 $defaultExclusions = @("Administrator", "DefaultAccount", "Guest", "WDAGUtilityAccount", "defaultuser0")
 
@@ -15,7 +14,7 @@ $userInput = Read-Host "Enter usernames to keep (separate users with commas), or
 $additionalUsersToKeep = if (![string]::IsNullOrWhiteSpace($userInput)) {
     $userInput.Split(",") | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" }
 } else { @() }
-s
+
 $usersToKeep = $defaultExclusions + $additionalUsersToKeep
 
 Write-Host "`nUsers to keep:" -ForegroundColor Cyan
