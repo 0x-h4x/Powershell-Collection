@@ -15,7 +15,7 @@ $userInput = Read-Host "Enter usernames to keep (separate users with commas), or
 $additionalUsersToKeep = if (![string]::IsNullOrWhiteSpace($userInput)) {
     $userInput.Split(",") | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" }
 } else { @() }
-
+s
 $usersToKeep = $defaultExclusions + $additionalUsersToKeep
 
 Write-Host "`nUsers to keep:" -ForegroundColor Cyan
@@ -30,7 +30,7 @@ foreach ($profile in $profiles) {
     $username = Split-Path $profile.LocalPath -Leaf
 
     if ($usersToKeep -contains $username) {
-        Write-Host "Skipping ${username} (in keep list)." -ForegroundColor Green
+        Write-Host "Skipping ${username} (in exclude list)." -ForegroundColor Green
         continue
     }
 

@@ -15,7 +15,6 @@ public static class PowerHelper {
 }
 "@
 
-# Combine flags to prevent sleep and screen dimming
 $flags = [PowerHelper+EXECUTION_STATE]::ES_CONTINUOUS `
        -bor [PowerHelper+EXECUTION_STATE]::ES_SYSTEM_REQUIRED `
        -bor [PowerHelper+EXECUTION_STATE]::ES_DISPLAY_REQUIRED
@@ -32,5 +31,5 @@ try {
 } finally {
     # Allow sleep again
     [PowerHelper]::SetThreadExecutionState([PowerHelper+EXECUTION_STATE]::ES_CONTINUOUS) | Out-Null
-    Write-Host "🟡 Sleep prevention stopped. System can now sleep as usual." -ForegroundColor Yellow
+    Write-Host "😴 Sleep prevention stopped. System can now sleep as usual." -ForegroundColor Yellow
 }
