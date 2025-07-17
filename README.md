@@ -1,7 +1,9 @@
 ## WIP - Work in progress
+*(use on your own discretion, i take no responsiblities for your shit breaking)*
+
 # Powershell-Collection
 ### A collection of the powershell scripts to automate tedious tasks.
-*(use on your own discretion, i take no responsiblities for your shit breaking)*
+
 
 
 To run these scripts remotely, use the following command:
@@ -10,6 +12,8 @@ To run these scripts remotely, use the following command:
 Invoke-WebRequest 'https://raw.githubusercontent.com/0x-h4x/Powershell-Collection/refs/heads/main/ReplaceMe.ps1' -OutFile $scriptPath 
 & $scriptPath
 Remove-Item $scriptPath -Force``
+
+**Replace ReplaceMe.ps1 with the script of your wish.**
 
 
 ### Scripts:
