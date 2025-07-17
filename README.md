@@ -10,7 +10,6 @@ To run these scripts remotely, use the following command:
 
 ``
 $script="$env:TEMP\TempScript.ps1"; Invoke-WebRequest 'https://raw.githubusercontent.com/0x-h4x/Powershell-Collection/refs/heads/main/DontSleep.ps1' -OutFile $script; & $script; Remove-Item $script -Force
-
 ``
 
 **Replace ReplaceMe.ps1 with the script of your wish.**
