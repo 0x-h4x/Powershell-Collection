@@ -6,8 +6,11 @@
 
 To run these scripts remotely, use the following command:
 
+``$scriptPath = "$env:TEMP\TempScript.ps1"
+Invoke-WebRequest 'https://raw.githubusercontent.com/0x-h4x/Powershell-Collection/refs/heads/main/ReplaceMe.ps1' -OutFile $scriptPath 
+& $scriptPath
+Remove-Item $scriptPath -Force``
 
-$scriptPath = "$env:TEMP\TempScript.ps1"; Invoke-WebRequest '<span style="color:red">https://raw.githubusercontent.com/0x-h4x/Powershell-Collection/refs/heads/main/IncreaseSCCMCache.ps1</span>' -OutFile $scriptPath; & $scriptPath
 
 ### Scripts:
 
