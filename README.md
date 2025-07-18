@@ -14,6 +14,11 @@ $script="$env:TEMP\TempScript.ps1"; Invoke-WebRequest 'https://raw.githubusercon
 
 **Replace ReplaceMe.ps1 with the script of your wish.**
 
+If policies are blocking powershell scripts; use this command to allow scripts for the current powershell session.
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+```
+
 
 ### Scripts:
 
