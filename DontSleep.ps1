@@ -22,7 +22,7 @@ $flags = [PowerHelper+EXECUTION_STATE]::ES_CONTINUOUS `
 # Apply the setting
 [PowerHelper]::SetThreadExecutionState($flags) | Out-Null
 
-Write-Host "✅ Sleep prevention active. Press Ctrl+C to stop and allow sleep again." -ForegroundColor Green
+Write-Host "☕ Sleep prevention active. Press Ctrl+C to stop and allow sleep again." -ForegroundColor Green
 
 try {
     while ($true) {
