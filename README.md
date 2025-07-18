@@ -34,3 +34,14 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 *This PowerShell script prevents the computer from sleeping or dimming the display while it runs. It keeps the system awake in a loop and restores normal sleep behavior when stopped (via Ctrl+C)*
 
 **Open a issue to make a request.**
+
+#
+
+<div align="right">
+  <p><em>Star me :)</em>
+  <a href="https://github.com/0x-h4x/Powershell-Collection">
+    </p> <img src="https://img.shields.io/github/stars/0x-h4x/Powershell-Collection?style=social" alt="Star on GitHub" />
+  </a>
+</div>
+
+
