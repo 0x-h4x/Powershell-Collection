@@ -22,7 +22,7 @@ $flags = [PowerHelper+EXECUTION_STATE]::ES_CONTINUOUS `
 # Apply the setting
 [PowerHelper]::SetThreadExecutionState($flags) | Out-Null
 
-Write-Host "✅ Sleep prevention active. Press Ctrl+C to stop and allow sleep again." -ForegroundColor Green
+Write-Host "☕ Sleep prevention active. Press Ctrl+C to stop and allow sleep again." -ForegroundColor Green
 
 try {
     while ($true) {
@@ -32,4 +32,9 @@ try {
     # Allow sleep again
     [PowerHelper]::SetThreadExecutionState([PowerHelper+EXECUTION_STATE]::ES_CONTINUOUS) | Out-Null
     Write-Host "😴 Sleep prevention stopped. System can now sleep as usual." -ForegroundColor Yellow
+
+    # Self-delete logic
+    $me = $MyInvocation.MyCommand.Path
+    Start-Sleep -Milliseconds 500
+    Start-Process cmd.exe "/c ping 127.0.0.1 -n 2 > nul & del `"$me`"" -WindowStyle Hidden
 }
