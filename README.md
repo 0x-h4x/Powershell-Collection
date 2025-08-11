@@ -33,6 +33,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 [**DontSleep.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/DontSleep.ps1)\
 *This PowerShell script prevents the computer from sleeping or dimming the display while it runs. It keeps the system awake in a loop and restores normal sleep behavior when stopped (via Ctrl+C)*
 
+[**RepairSecureChannel.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/RepairSecureChannel.ps1)\
+*This PowerShell script prevents the computer from sleeping or dimming the display while it runs. It keeps the system awake in a loop and restores normal sleep behavior when stopped (via Ctrl+C)*
+
 **Open a issue to make a request.**
 
 #
