@@ -1,4 +1,11 @@
 ﻿# Run me as admin :)
+
+# Admin-Check FIRST
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
+    Write-Host "⚠️  This script must be run as Administrator. Please restart PowerShell as Administrator and try again." -ForegroundColor Yellow
+    exit
+}
+
 $DefaultGB = 15
 $DefaultCacheSize = $DefaultGB * 1024  # in MB
 
@@ -12,12 +19,6 @@ if ([string]::IsNullOrWhiteSpace($UserInput) -or -not ($UserInput -as [int])) {
 } else {
     $NewCacheSize = [int]$UserInput * 1024
     Write-Host "✅ Using custom cache size: $UserInput GB ($NewCacheSize MB)" -ForegroundColor Green
-}
-
-# Admin-Check
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
-    Write-Host "⚠️  This script must be run as Administrator. Please restart PowerShell as Administrator and try again." -ForegroundColor Yellow
-    exit
 }
 
 try {
