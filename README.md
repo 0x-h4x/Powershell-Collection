@@ -37,6 +37,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 *This PowerShell script checks if the secure channel to AD is broken, if yes it prompts for AD domain credentials and tries to repair the channel. It must be run as an administrator and you will need to have an AD Domain Admin avalible for repair.\
 Run with "FalseP" to force repair regardless of status.*
 
+[**InstallPrinter.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/Scripts/InstallPrinter.ps1)\
+*Automates the task of installing a networksprinter. Add the name and path of the printer and let it run.*
+
 **Open a issue to make a request.**
 
 #
