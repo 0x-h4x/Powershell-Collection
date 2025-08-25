@@ -4,6 +4,8 @@
 # Powershell-Collection
 ### A collection of the powershell scripts to automate tedious tasks.
 
+Feel free to fork these and customize them to automate tasks within your own environment.
+
 
 
 To run these scripts remotely, use the following command:
