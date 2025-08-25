@@ -40,6 +40,10 @@ Run with "FalseP" to force repair regardless of status.*
 [**InstallPrinter.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/Scripts/InstallPrinter.ps1)\
 *Automates the task of installing a networksprinter, also sets the new printer as default. Add the name and path of the printer and let it run. If the printername is the same as the path, you only need the path. i.e "\\\10.0.0.1\Printername"*
 
+[**TestAdCreds.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/Scripts/TestAdCreds.ps1)\
+*This PowerShell script prompts the user for credentials and then attempts to authenticate the provided username and password against Active Directory (AD).
+You will need to be on a domain joined computer for this to work*
+
 **Open a issue to make a request.**
 
 #
