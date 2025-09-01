@@ -1,96 +1,82 @@
-# Ensure the script runs as Administrator
+
+# --- Admin check ---
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
-    Write-Host "$([char]0x26A0)  This script must be run as Administrator. Please restart PowerShell as Administrator and try again." -ForegroundColor Yellow
+    Write-Host "[!] This script must be run as Administrator. Please restart PowerShell as Administrator and try again."
     exit
 }
 
-# Detect Windows version
-$BuildNumber = [System.Environment]::OSVersion.Version.Build
-$ReleaseId = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion').ReleaseId
-Write-Host "Detected Windows Build: $BuildNumber (ReleaseId: $ReleaseId)"
+$winBuild = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").CurrentBuild
+$releaseId = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").ReleaseId
+Write-Host "Detected Windows Build: $winBuild (ReleaseId: $releaseId)"
 Write-Host ""
+
 Write-Host "========================================="
 Write-Host " Active Directory Tools Installer"
 Write-Host "========================================="
 
-# --- Improved detection ---
-function Test-ADUCInstalled {
-    return (Test-Path "$env:windir\System32\dsa.msc")
+# --- Define feature names ---
+$ADUCName = "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
+$ADModuleName = "Rsat.ActiveDirectory.PowerShell~~~~0.0.1.0"
+
+$ADUCInstalled = (Get-WindowsCapability -Online -Name $ADUCName).State -eq "Installed"
+$ADModuleInstalled = (Get-WindowsCapability -Online -Name $ADModuleName).State -eq "Installed"
+
+if ($ADUCInstalled) {
+    Write-Host "[OK] ADUC (Active Directory Users and Computers) is installed."
+} else {
+    Write-Host "[X] ADUC is not installed."
 }
 
-function Test-ADModuleInstalled {
-    return (Get-Module -ListAvailable -Name ActiveDirectory -ErrorAction SilentlyContinue) -ne $null
+if ($ADModuleInstalled) {
+    Write-Host "[OK] RSAT: ActiveDirectory PowerShell Module is installed."
+} else {
+    Write-Host "[X] RSAT PowerShell module is not installed."
 }
 
-$ADUCInstalled = Test-ADUCInstalled
-$ADModuleInstalled = Test-ADModuleInstalled
-
-# Report
-if ($ADUCInstalled) { Write-Host "$([char]0x2705) ADUC (Active Directory Users and Computers) is already installed." }
-else { Write-Host "$([char]0x274C) ADUC is not installed." }
-
-if ($ADModuleInstalled) { Write-Host "$([char]0x2705) RSAT: ActiveDirectory PowerShell Module is already installed." }
-else { Write-Host "$([char]0x274C) RSAT PowerShell module is not installed." }
-
-# If both are installed, exit gracefully
-if ($ADUCInstalled -and $ADModuleInstalled) {
-    Write-Host "$([char]0x2728) All requested tools are already installed. Nothing to do."
-    exit
-}
-
-# Menu
 Write-Host ""
 Write-Host "Select an option:"
-Write-Host "1. Install ADUC (Active Directory Users and Computers)"
-Write-Host "2. Install RSAT: ActiveDirectory PowerShell Module"
+Write-Host "1. Install ADUC"
+Write-Host "2. Install RSAT PowerShell module"
 Write-Host "3. Install BOTH"
+Write-Host "4. Uninstall BOTH"
 
-$choice = Read-Host "Enter your choice (1-3)"
+$choice = Read-Host "Enter your choice (1-4)"
+
+function Install-Feature($name, $label) {
+    Write-Host "Installing $label..."
+    try {
+        Add-WindowsCapability -Online -Name $name | Out-Null
+        Write-Host "[OK] $label installed."
+    } catch {
+        Write-Host "[X] Failed to install $label. Error: $_"
+    }
+}
+
+function Uninstall-Feature($name, $label) {
+    Write-Host "Uninstalling $label..."
+    try {
+        $state = (Get-WindowsCapability -Online -Name $name).State
+        if ($state -eq "Installed") {
+            Remove-WindowsCapability -Online -Name $name | Out-Null
+            Write-Host "[OK] $label uninstalled."
+        } else {
+            Write-Host "[i] $label already removed."
+        }
+    } catch {
+        Write-Host "[X] Failed to uninstall $label. Error: $_"
+    }
+}
 
 switch ($choice) {
-    1 {
-        if (-not $ADUCInstalled) {
-            Write-Host "Installing ADUC..."
-            Add-WindowsCapability -Online -Name RSAT:ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
-            if (Test-ADUCInstalled) {
-                Write-Host "$([char]0x2705) ADUC installed successfully."
-            } else {
-                Write-Host "$([char]0x274C) ADUC installation failed."
-            }
-        }
+    "1" { Install-Feature $ADUCName "ADUC (Active Directory Users and Computers)" }
+    "2" { Install-Feature $ADModuleName "RSAT: ActiveDirectory PowerShell Module" }
+    "3" { 
+        Install-Feature $ADUCName "ADUC (Active Directory Users and Computers)" 
+        Install-Feature $ADModuleName "RSAT: ActiveDirectory PowerShell Module"
     }
-    2 {
-        if (-not $ADModuleInstalled) {
-            Write-Host "Installing RSAT PowerShell module..."
-            Add-WindowsCapability -Online -Name RSAT:ActiveDirectory.PowerShell~~~~0.0.1.0
-            if (Test-ADModuleInstalled) {
-                Write-Host "$([char]0x2705) RSAT PowerShell module installed successfully."
-            } else {
-                Write-Host "$([char]0x274C) RSAT PowerShell module installation failed."
-            }
-        }
+    "4" {
+        Uninstall-Feature $ADUCName "ADUC (Active Directory Users and Computers)"
+        Uninstall-Feature $ADModuleName "RSAT: ActiveDirectory PowerShell Module"
     }
-    3 {
-        if (-not $ADUCInstalled) {
-            Write-Host "Installing ADUC..."
-            Add-WindowsCapability -Online -Name RSAT:ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
-            if (Test-ADUCInstalled) {
-                Write-Host "$([char]0x2705) ADUC installed successfully."
-            } else {
-                Write-Host "$([char]0x274C) ADUC installation failed."
-            }
-        }
-        if (-not $ADModuleInstalled) {
-            Write-Host "Installing RSAT PowerShell module..."
-            Add-WindowsCapability -Online -Name RSAT:ActiveDirectory.PowerShell~~~~0.0.1.0
-            if (Test-ADModuleInstalled) {
-                Write-Host "$([char]0x2705) RSAT PowerShell module installed successfully."
-            } else {
-                Write-Host "$([char]0x274C) RSAT PowerShell module installation failed."
-            }
-        }
-    }
-    default {
-        Write-Host "$([char]0x26A0) Invalid choice. Exiting."
-    }
+    default { Write-Host "[!] Invalid choice. Exiting." }
 }
