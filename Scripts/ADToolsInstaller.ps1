@@ -14,7 +14,6 @@ Write-Host "========================================="
 Write-Host " Active Directory Tools Installer"
 Write-Host "========================================="
 
-# --- Define feature names ---
 $ADUCName = "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
 $ADModuleName = "Rsat.ActiveDirectory.PowerShell~~~~0.0.1.0"
 

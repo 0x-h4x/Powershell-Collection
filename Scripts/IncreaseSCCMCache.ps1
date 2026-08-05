@@ -41,6 +41,13 @@ try {
             Write-Host -NoNewline "."
         }
         Write-Host ""
+        
+
+        #Check SSCM Agent status.
+        Write-Host "Checking status please wait"
+        Start-Sleep -Secound 1
+        $ervice.Status -Ne "Running"
+
 
         # Check service status
         $service = Get-Service -Name "CcmExec"
