@@ -45,7 +45,7 @@ Write-Host "Detected HP model: $model"
 $arguments = @(
     "/Operation:Analyze"
     "/Category:Drivers"
-    "/Selection:Drivers"
+    "/Selection:All"
     "/Action:Install"
     "/InstallType:All"
     "/Silent"
