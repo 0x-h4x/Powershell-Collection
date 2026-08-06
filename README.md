@@ -47,7 +47,10 @@ Run with "FalseP" to force repair regardless of status.*
 You will need to be on a domain joined computer for this to work*
 
 [**AdToolsInstaller.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/Scripts/AdToolsInstaller.ps1)\
-*This PowerShell script is an automated installer for Active Directory management tools that ensures you’re running it as Administrator, detects your Windows version to confirm RSAT can be installed via Windows capabilities (Windows 10 1809+ or Windows 11), and then checks which tools are already present. It offers a menu where you can choose to install ADUC (Active Directory Users and Computers), the RSAT ActiveDirectory PowerShell module, or both at once *
+*This PowerShell script is an automated installer for Active Directory management tools that ensures you’re running it as Administrator, detects your Windows version to confirm RSAT can be installed via Windows capabilities (Windows 10 1809+ or Windows 11), and then checks which tools are already present. It offers a menu where you can choose to install ADUC (Active Directory Users and Computers), the RSAT ActiveDirectory PowerShell module, or both at once*
+
+[**AutorRunHPIA.ps1**](https://github.com/0x-h4x/Powershell-Collection/blob/main/Scripts/AutoRunHPIA.ps1)\
+*This PowerShell script verifies that it is running with administrator privileges on an HP computer, then uses HP Image Assistant (HPIA) to automatically analyze, download, and install the latest HP drivers. It saves logs and reports to C:\ProgramData\HPIA-Updates and displays a clear status message based on the installation result.*
 
 **Open a issue to make a request.**
 

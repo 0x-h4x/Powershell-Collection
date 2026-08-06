@@ -89,7 +89,7 @@ switch ($exitCode) {
     4098 { Write-Error "HPIA could not access the internet." }
     4102 { Write-Error "TLS 1.2 or newer is required." }
     default {
-        Write-Warning "HPIA finished with exit code $exitCode. Check the reports and logs."
+        Write-Warning "HPIA finished with exit code $exitCode. Check the logs on $LogFolder."
     }
 }
 
