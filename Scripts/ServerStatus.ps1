@@ -52,3 +52,23 @@ if (-not (Test-ServerReachable -Name $ComputerName)) {
 Write-Host "$ComputerName is online. Querying $ServiceName..."
 & "$env:SystemRoot\System32\sc.exe" "\\$ComputerName" queryex $ServiceName
 exit $LASTEXITCODE
+
+$params = @{
+    Message = @{
+        Subject = "Status for server"
+        Body = @{
+            ContentType = "HTML"
+            Content = "Hello. $ServiceName on $ComputerName is $Status  </b>."
+        }
+        ToRecipients = @(
+            @{
+                EmailAddress = @{
+                    Address = "recipient@domain.com"
+                }
+            }
+        )
+    }
+    SaveToSentItems = "true"
+}
+
+Send-MgUserMail -UserId "sender@domain.com" -BodyParameter $params
