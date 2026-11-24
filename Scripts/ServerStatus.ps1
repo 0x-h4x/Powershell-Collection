@@ -58,7 +58,7 @@ $params = @{
         Subject = "Status for server"
         Body = @{
             ContentType = "HTML"
-            Content = "Hello. $ServiceName on $ComputerName is $Status  </b>."
+            Content = "Hello. $ServiceName on $ComputerName is $State  </b>."
         }
         ToRecipients = @(
             @{
