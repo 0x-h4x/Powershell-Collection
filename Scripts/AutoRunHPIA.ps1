@@ -42,12 +42,37 @@ if ($manufacturer -notmatch "HP|Hewlett-Packard") {
 
 Write-Host "Detected HP model: $model"
 
+$secureBiosPassword = Read-Host `
+    "Enter the BIOS administrator password" `
+    -AsSecureString
+
+$biosPasswordPointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+    $secureBiosPassword
+)
+
+try {
+    $biosPassword = [Runtime.InteropServices.Marshal]::PtrToStringBSTR(
+        $biosPasswordPointer
+    )
+
+    $env:HPIA_BIOS_PASSWORD = $biosPassword
+}
+finally {
+    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR(
+        $biosPasswordPointer
+    )
+
+    $biosPassword = $null
+    $secureBiosPassword = $null
+}
+
 $arguments = @(
     "/Operation:Analyze"
-    "/Category:Drivers"
+    "/Category:All"
     "/Selection:All"
     "/Action:Install"
     "/InstallType:All"
+    "/BIOSPwdEnv:HPIA_BIOS_PASSWORD"
     "/Silent"
     "/AutoCleanup"
     "/SoftPaqDownloadFolder:$DownloadFolder"
@@ -58,7 +83,7 @@ $arguments = @(
 
 #$arguments = @(
 #    "/Operation:Analyze"
-#    "/Category:All"
+#    "/Category:Drivers"
 #    "/Selection:All"
 #    "/Action:Install"
 #    "/InstallType:All"
@@ -70,13 +95,18 @@ $arguments = @(
 #    "/Debug"
 #)
 
-$process = Start-Process `
-    -FilePath $HpiaExe `
-    -ArgumentList $arguments `
-    -Wait `
-    -PassThru
+try {
+    $process = Start-Process `
+        -FilePath $HpiaExe `
+        -ArgumentList $arguments `
+        -Wait `
+        -PassThru
 
-$exitCode = $process.ExitCode
+    $exitCode = $process.ExitCode
+}
+finally {
+    Remove-Item Env:\HPIA_BIOS_PASSWORD -ErrorAction SilentlyContinue
+}
 
 switch ($exitCode) {
     0    { Write-Host "HPIA completed successfully." }
