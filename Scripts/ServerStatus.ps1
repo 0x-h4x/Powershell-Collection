@@ -174,7 +174,7 @@ if ($shouldSend) {
     Send-StatusMail -Subject $subject -HtmlBody $body
 }
 else {
-    Write-Verbose 'Email not sent (disabled for this result).'
+    Write-Verbose 'Email not sent (Reason: Email disabled in the script).'
 }
 
 if ($success) { exit 0 } else { exit 1 }
