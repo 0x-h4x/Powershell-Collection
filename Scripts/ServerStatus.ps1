@@ -10,7 +10,7 @@ param(
     [string]$SendEmailOnFailure = 'true',
 
     [ValidateSet('true', 'false', '1', '0', 'yes', 'no')]
-    [string]$SendEmailOnSuccess = 'false',
+    [string]$SendEmailOnSuccess = 'true',
 
     [ValidateNotNullOrEmpty()]
     [string]$MailFrom = 'sender@domain.com',
